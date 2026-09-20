@@ -10,7 +10,7 @@ The notebook builds a symmetric k-nearest-neighbor graph, estimates geodesic dis
 | --- | --- |
 | ![Custom Isomap embedding of Iranian cities](custom_isomap.jpg) | ![scikit-learn Isomap embedding of Iranian cities](sklearn_isomap.png) |
 
-After Procrustes alignment, the notebook reports a disparity of **`0.000000`** between the custom and scikit-learn embeddings. At six decimal places, the two methods therefore recover the same relative geometry up to translation, rotation, reflection, and scale.
+The custom and scikit-learn embeddings are compared after Procrustes alignment. The notebook prints the disparity in scientific notation at higher precision so numerical agreement can be assessed without interpreting a rounded `0.000000` as exact equality.
 
 ## Method
 
@@ -26,8 +26,6 @@ After Procrustes alignment, the notebook reports a disparity of **`0.000000`** b
 - `isomap_iranian_cities.ipynb` - executable implementation, plots, and comparison.
 - `custom_isomap.jpg` - final custom Isomap visualization.
 - `sklearn_isomap.png` - aligned scikit-learn visualization.
-- `report-fa.pdf` - complete report in Persian, including the Isomap analysis and theoretical dimensionality-reduction questions.
-- `report-fa.tex` - LaTeX source for the report; it references course-template files and fonts that are not included here.
 - `requirements.txt` - Python dependencies needed to run the notebook.
 
 ## Run locally
@@ -43,13 +41,14 @@ jupyter lab isomap_iranian_cities.ipynb
 
 Run the notebook from top to bottom. Its first cells download `distances.csv` from the Google Drive file used for this project; the generated dataset file is ignored by Git.
 
+## Data provenance
+
+The pairwise city-distance matrix was provided by the course teaching assistant as course material. The original source, collection methodology, and redistribution license were not specified, so this repository does not make claims beyond that known provenance.
+
 ## Implementation notes
 
 - The graph and MDS pipeline are implemented explicitly for educational clarity.
 - NumPy and SciPy provide numerical primitives, including eigendecomposition and the Floyd-Warshall shortest-path routine.
 - The neighborhood size is fixed at `k = 5`, and the target embedding has two dimensions.
+- The custom pipeline checks that the k-nearest-neighbor graph remains connected before applying classical MDS.
 - The included notebook retains its saved plot outputs so the results are visible directly on GitHub.
-
-## Report
-
-The accompanying Persian-language report provides the derivation of classical MDS, an interpretation of the city embedding, the comparison with scikit-learn, and written answers covering PCA, covariance, SVD, reconstruction error, and feature scaling.
